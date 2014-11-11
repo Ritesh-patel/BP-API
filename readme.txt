@@ -11,6 +11,8 @@ License: GPLv2
 == Description ==
 json API for BuddyPress. This plugin creates json api endpoints for https://github.com/WP-API
 
+Use the develop branch with this plugin https://github.com/WP-API/WP-API/tree/develop
+
 == Installation ==
 
 = Automatic Installation =

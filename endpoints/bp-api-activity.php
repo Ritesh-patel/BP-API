@@ -47,11 +47,16 @@ class BP_API_Activity {
 					'can_delete'  		=> bp_activity_user_can_delete()
 				);
 				$activities[] =  $activity;
-				$response = array(
+				$data = array(
 					'activity' => $activities,
 					'more_activity' => bp_activity_has_more_items()
 				);
 			}
+			
+			$response = new WP_JSON_Response();
+			$response->set_data( $data );
+			$response = json_ensure_response( $response );
+			
 			return $response;
 		} else {
 			return wp_send_json_error();

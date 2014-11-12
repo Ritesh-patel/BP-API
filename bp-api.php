@@ -50,7 +50,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 *
 		 */
 		private function constants() {
-		
+
 			// define api endpint prefix
 			if ( ! defined( 'BP_API_SLUG' ) ) {
 				define( 'BP_API_SLUG', 'bp' );
@@ -99,13 +99,13 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 				add_action( 'all_admin_notices', array( $this, 'bp_api_buddypress_required' ) );
 				return;
 			}
-			
+
 			// is BuddyPress plugin active? If not, throw a notice and deactivate
 			if ( ! in_array( 'json-rest-api/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_wp_api_required' ) );
 				return;
 			}
-			
+
 			add_action( 'bp_include', array( $this, 'bp_api_init' ) );
 			add_action( 'wp_json_server_before_serve', array( $this, 'create_bp_endpoints' ), 0 );
 
@@ -158,8 +158,8 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the BuddyPress plugin to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 		}
-		
-		
+
+
 		/**
 		 * bp_api_wp_api_required function.
 		 *
@@ -170,48 +170,48 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the WP API plugin to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 		}
-		
-		
+
+
 		public function create_bp_endpoints() {
-		
+
 			/*
 			* BP Core
 			*/
 			$bp_api_core = new BP_API_Core;
-			register_json_route( 'bp', '/*', array(
+			register_json_route( BP_API_SLUG, '/*', array(
 				'methods'         => 'GET',
-				'callback'        => array( $bp_api_core, 'get_info' ),		
+				'callback'        => array( $bp_api_core, 'get_info' ),
 			) );
-			
+
 			/*
 			* BP Activity
 			*/
 			$bp_api_activity = new BP_API_Activity;
-			register_json_route( 'bp', '/activity', array(
+			register_json_route( BP_API_SLUG, '/activity', array(
 				'methods'         => 'GET',
-				'callback'        => array( $bp_api_activity, 'get_items' ),		
+				'callback'        => array( $bp_api_activity, 'get_items' ),
 			) );
-			register_json_route( 'bp', '/activity/(?P<id>\d+)', array(
+			register_json_route( BP_API_SLUG, '/activity/(?P<id>\d+)', array(
 				'methods'         => 'GET',
-				'callback'        => array( $bp_api_activity, 'get_item' ),		
+				'callback'        => array( $bp_api_activity, 'get_item' ),
 			) );
-			
+
 			/*
 			* BP xProfile
 			*/
 			$bp_api_xprofile = new BP_API_xProfile;
-			register_json_route( 'bp', '/xprofile', array(
+			register_json_route( BP_API_SLUG, '/xprofile', array(
 				'methods'         => 'GET',
-				'callback'        => array( $bp_api_xprofile, 'get_items' ),		
+				'callback'        => array( $bp_api_xprofile, 'get_items' ),
 			) );
-			register_json_route( 'bp', '/xprofile/(?P<id>\d+)', array(
+			register_json_route( BP_API_SLUG, '/xprofile/(?P<id>\d+)', array(
 				'methods'         => 'GET',
-				'callback'        => array( $bp_api_xprofile, 'get_item' ),		
+				'callback'        => array( $bp_api_xprofile, 'get_item' ),
 			) );
-			
-				
+
+
 		}
-		
+
 
 
 	}

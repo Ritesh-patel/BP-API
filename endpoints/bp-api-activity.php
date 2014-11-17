@@ -55,7 +55,7 @@ class BP_API_Activity {
 
 
 		} else {
-			return new WP_Error( 'bp_json_activity_invalid', __( 'No Activity Found.' ), array( 'status' => 403 ) );
+			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.' ), array( 'status' => 200 ) );
 		}
 
 		$response = new WP_JSON_Response();

@@ -39,7 +39,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 
 		/**
-		 * A dummy constructor to prevent BuddyPress from being loaded more than once.
+		 * A dummy constructor to prevent BuddyPress API from being loaded more than once.
 		 *
 		 */
 		private function __construct() { /* Do nothing here */ }
@@ -100,7 +100,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 				return;
 			}
 
-			// is BuddyPress plugin active? If not, throw a notice and deactivate
+			// is JSON API plugin active? If not, throw a notice and deactivate
 			if ( ! in_array( 'json-rest-api/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_wp_api_required' ) );
 				return;

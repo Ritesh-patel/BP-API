@@ -2,9 +2,9 @@
 
 class BP_API_Activity {
 
-	public function get_items( $request ) {
+	public function get_items( $filter = array() ) {
 
-		$response = $this->get_activity();
+		$response = $this->get_activity( $filter['filter'] );
 
 		return $response;
 
@@ -24,11 +24,9 @@ class BP_API_Activity {
 	*
 	*/
 
-	public function get_activity() {
+	public function get_activity( $filter ) {
 
-		global $bp;
-
-		$args = $_GET;
+		$args = $filter;
 
 		if ( bp_has_activities( $args ) ) {
 			while ( bp_activities() ) {
@@ -52,7 +50,6 @@ class BP_API_Activity {
 					'more_activity' => bp_activity_has_more_items()
 				);
 			}
-
 
 		} else {
 			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.' ), array( 'status' => 200 ) );

@@ -2,34 +2,32 @@
 
 class BP_API_Activity {
 
-	public function get_items( $request ) {
-	
-		$response = $this->get_activity();
-	
+	public function get_items( $filter = array() ) {
+
+		$response = $this->get_activity( $filter['filter'] );
+
 		return $response;
-	
+
 	}
-	
+
 	public function get_item( $request ) {
-	
+
 		$response = 'a single activity item';
-	
+
 		return $response;
-	
+
 	}
-	
-	
+
+
 	/*
 	* Helper functions to process data requests
 	*
 	*/
-	
-	public function get_activity() {
-		
-		global $bp;
-				
-		$args = $_GET;
-		
+
+	public function get_activity( $filter ) {
+
+		$args = $filter;
+
 		if ( bp_has_activities( $args ) ) {
 			while ( bp_activities() ) {
 				bp_the_activity();
@@ -52,35 +50,35 @@ class BP_API_Activity {
 					'more_activity' => bp_activity_has_more_items()
 				);
 			}
-			
-			$response = new WP_JSON_Response();
-			$response->set_data( $data );
-			$response = json_ensure_response( $response );
-			
-			return $response;
+
 		} else {
-			return wp_send_json_error();
+			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.' ), array( 'status' => 200 ) );
 		}
 
-		
+		$response = new WP_JSON_Response();
+		$response->set_data( $data );
+		$response = json_ensure_response( $response );
+
+		return $response;
+
 	}
-	
+
 	public function add_activity() {
-		
+
 		//add activity code here
-		
+
 	}
-	
+
 	public function edit_activity() {
-		
+
 		//edit activity code here
-		
+
 	}
-	
+
 	public function remove_activity() {
-		
+
 		//remove activity code here
-		
+
 	}
 
 }

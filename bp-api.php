@@ -186,28 +186,32 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			/*
 			* BP Activity
 			*/
-			$bp_api_activity = new BP_API_Activity;
-			register_json_route( BP_API_SLUG, '/activity', array(
-				'methods'         => 'GET',
-				'callback'        => array( $bp_api_activity, 'get_items' ),
-			) );
-			register_json_route( BP_API_SLUG, '/activity/(?P<id>\d+)', array(
-				'methods'         => 'GET',
-				'callback'        => array( $bp_api_activity, 'get_item' ),
-			) );
+			if ( bp_is_active( 'activity' ) ) {
+				$bp_api_activity = new BP_API_Activity;
+				register_json_route( BP_API_SLUG, '/activity', array(
+					'methods'         => 'GET',
+					'callback'        => array( $bp_api_activity, 'get_items' ),
+				) );
+				register_json_route( BP_API_SLUG, '/activity/(?P<id>\d+)', array(
+					'methods'         => 'GET',
+					'callback'        => array( $bp_api_activity, 'get_item' ),
+				) );
+			}
 
 			/*
 			* BP xProfile
 			*/
-			$bp_api_xprofile = new BP_API_xProfile;
-			register_json_route( BP_API_SLUG, '/xprofile', array(
-				'methods'         => 'GET',
-				'callback'        => array( $bp_api_xprofile, 'get_items' ),
-			) );
-			register_json_route( BP_API_SLUG, '/xprofile/(?P<id>\d+)', array(
-				'methods'         => 'GET',
-				'callback'        => array( $bp_api_xprofile, 'get_item' ),
-			) );
+			if ( bp_is_active( 'xprofile' ) ) {
+				$bp_api_xprofile = new BP_API_xProfile;
+				register_json_route( BP_API_SLUG, '/xprofile', array(
+					'methods'         => 'GET',
+					'callback'        => array( $bp_api_xprofile, 'get_items' ),
+				) );
+				register_json_route( BP_API_SLUG, '/xprofile/(?P<id>\d+)', array(
+					'methods'         => 'GET',
+					'callback'        => array( $bp_api_xprofile, 'get_item' ),
+				) );
+			}
 
 
 		}

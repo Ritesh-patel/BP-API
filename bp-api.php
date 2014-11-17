@@ -107,8 +107,6 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			}
 
 			add_action( 'bp_include', array( $this, 'bp_api_init' ) );
-			add_action( 'wp_json_server_before_serve', array( $this, 'create_bp_endpoints' ), 0 );
-
 		}
 
 
@@ -119,12 +117,15 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @return void
 		 */
 		public function bp_api_init() {
+
 			// requires BP 2.0 or greater.
 			if ( version_compare( BP_VERSION, '2.0', '>' ) ) {
 				include_once( dirname( __FILE__ ) . '/endpoints/bp-api-core.php' );
 				include_once( dirname( __FILE__ ) . '/endpoints/bp-api-activity.php' );
 				include_once( dirname( __FILE__ ) . '/endpoints/bp-api-xprofile.php' );
 			}
+
+			add_action( 'wp_json_server_before_serve', array( $this, 'create_bp_endpoints' ), 0 );
 		}
 
 

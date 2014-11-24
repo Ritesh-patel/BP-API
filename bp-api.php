@@ -156,7 +156,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @return void
 		 */
 		public function bp_api_buddypress_required() {
-			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the BuddyPress plugin to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
+			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the <a href="https://buddypress.org/">BuddyPress plugin</a> to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 		}
 

@@ -62,19 +62,34 @@ class BP_API_Activity {
 		return $response;
 
 	}
-
+	
+	/** 
+	 * Function to allow adding of activity within BuddyPress
+	 * 
+	 * @access public 
+	 */ 
 	public function add_activity() {
 
 		//add activity code here
 
 	}
-
+	
+	/** 
+	 * Function to allow editing of activity within BuddyPress
+	 * 
+	 * @access public 
+	 */ 
 	public function edit_activity() {
 
 		//edit activity code here
 
 	}
-
+	
+	/** 
+	 * Function to allow removal of activity within BuddyPress
+	 * 
+	 * @access public 
+	 */ 
 	public function remove_activity() {
 
 		//remove activity code here

@@ -86,7 +86,9 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 
 		/**
-		 * actions.
+		 * BP-API Actions
+		 * 
+		 * Includes actions for init, activation/deactivation hooks, and admin notices.
 		 *
 		 */
 		private function actions() {

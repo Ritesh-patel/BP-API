@@ -13,12 +13,14 @@ Author URI: https://github.com/modemlooper/bp-api
 if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( !class_exists( 'BuddyPress_API' ) ) :
-
+	
+	/**
+	 * Main BuddyPress API Class
+	 */
 	class BuddyPress_API {
 
 		/**
 		 * Main BuddyPress API Instance.
-		 *
 		 */
 		public static function instance() {
 

@@ -53,7 +53,7 @@ class BP_API_Activity {
 			
 			$data = array(
 				'activity' => $activities,
-				'more_activity' => bp_activity_has_more_items()
+				'has_more_items' => bp_activity_has_more_items()
 			);
 
 		} else {

@@ -57,7 +57,7 @@ class BP_API_Activity {
 			);
 
 		} else {
-			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.' ), array( 'status' => 200 ) );
+			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.', 'buddypress' ), array( 'status' => 200 ) );
 		}
 
 		$response = new WP_JSON_Response();

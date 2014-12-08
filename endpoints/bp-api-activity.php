@@ -92,12 +92,3 @@ class BP_API_Activity {
 	}
 
 }
-
-function filter_activity( $activity ){
-
-	$activity['action'] = 'wwwwww';
-
-	return $activity;
-
-}
-add_filter( 'bp_json_prepare_activity', 'filter_activity' );

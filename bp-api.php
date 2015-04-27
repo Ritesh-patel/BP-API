@@ -105,7 +105,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			}
 
 			// is JSON API plugin active? If not, throw a notice and deactivate
-			if ( ! in_array( 'json-rest-api/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			if ( ! in_array( 'WP-API-develop/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_wp_api_required' ) );
 				return;
 			}
@@ -129,7 +129,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 				include_once( dirname( __FILE__ ) . '/endpoints/bp-api-xprofile.php' );
 			}
 
-			add_action( 'wp_json_server_before_serve', array( $this, 'create_bp_endpoints' ), 0 );
+			add_action( 'wp_json_init', array( $this, 'create_bp_endpoints' ), 0 );
 		}
 
 

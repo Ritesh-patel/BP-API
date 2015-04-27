@@ -47,14 +47,19 @@ class BP_API_Activity {
 					'is_favorite'	 	=> bp_get_activity_is_favorite(),
 					'can_delete'  		=> bp_activity_user_can_delete()
 				);
+
+				$activity = apply_filters( 'bp_json_prepare_activity', $activity );
+
 				$activities[] =	 $activity;
 
 			}
-			
+
 			$data = array(
 				'activity' => $activities,
 				'has_more_items' => bp_activity_has_more_items()
 			);
+
+			$data = apply_filters( 'bp_json_prepare_activities', $data );
 
 		} else {
 			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.', 'buddypress' ), array( 'status' => 200 ) );

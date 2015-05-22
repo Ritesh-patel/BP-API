@@ -65,9 +65,9 @@ class BP_API_Activity {
 			return new WP_Error( 'bp_json_activity', __( 'No Activity Found.', 'buddypress' ), array( 'status' => 200 ) );
 		}
 
-		$response = new WP_JSON_Response();
+		$response = new WP_REST_Response();
 		$response->set_data( $data );
-		$response = json_ensure_response( $response );
+		$response = rest_ensure_response( $response );
 
 		return $response;
 

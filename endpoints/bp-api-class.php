@@ -32,7 +32,7 @@ class BP_API_Controller extends WP_JSON_Controller {
 		$bp_api_core = new BP_API_Core;
 		
 		var_dump($bp_api_core);
-		register_json_route( BP_API_SLUG, '/', array(
+		register_rest_route( BP_API_SLUG, '/', array(
 			'methods'         => WP_JSON_Server::READABLE,
 			'callback'        => array( $bp_api_core, 'get_info' ),
 		) );

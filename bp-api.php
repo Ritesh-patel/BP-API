@@ -100,7 +100,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 
 			add_action( 'plugins_loaded', array( $this, 'check_if_exists' ), 9999 );
-			add_action( 'bp_include', array( $this, 'bp_api_init' ) );
+			add_action( 'bp_include', array( $this, 'bp_api_include' ) );
 		}
 		
 		
@@ -138,7 +138,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @access public
 		 * @return void
 		 */
-		public function bp_api_init() {
+		public function bp_api_include() {
 
 			// requires BP 2.0 or greater.
 			if ( version_compare( BP_VERSION, '2.0', '>' ) ) {
@@ -147,7 +147,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 				include_once( dirname( __FILE__ ) . '/endpoints/bp-api-xprofile.php' );
 			}
 
-			add_action( 'rest_api_init', array( $this, 'create_bp_endpoints' ), 0 );
+			add_action( 'rest_api_init', array( $this, 'bp_api_init' ), 0 );
 		}
 
 
@@ -204,7 +204,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @access public
 		 * @return void
 		 */
-		public function create_bp_endpoints() {
+		public function bp_api_init() {
 
 			/*
 			* BP Core

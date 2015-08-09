@@ -210,10 +210,8 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			* BP Core
 			*/
 			$bp_api_core = new BP_API_Core;
-			register_rest_route( BP_API_SLUG, '/*', array(
-				'methods'         => 'GET',
-				'callback'        => array( $bp_api_core, 'get_info' ),
-			) );
+			$bp_api_core->register_routes();
+
 
 			/*
 			* BP Activity

@@ -7,8 +7,14 @@ class BP_API_Core extends WP_REST_Controller {
 
 	}
 
+
 	/**
+	 * register_routes function.
+	 *
 	 * Register the routes for the objects of the controller.
+	 * 
+	 * @access public
+	 * @return void
 	 */
 	public function register_routes() {
 	
@@ -22,7 +28,9 @@ class BP_API_Core extends WP_REST_Controller {
 
 
 	/**
-	 * get_info function.
+	 * get_item function.
+	 *
+	 * returns data about a BuddyPress site
 	 * 
 	 * @access public
 	 * @param mixed $request
@@ -36,6 +44,9 @@ class BP_API_Core extends WP_REST_Controller {
 			'active_components'  => $bp->active_components,
 			'directory_page_ids' => bp_core_get_directory_page_ids(),
 		);
+		
+		$core = apply_filters( 'core_api_data_filter', $core );
+		
 		$response = new WP_REST_Response();
 		$response->set_data( $core );
 		$response = rest_ensure_response( $response );

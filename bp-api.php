@@ -98,24 +98,42 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			register_activation_hook( __FILE__, array( $this, 'bp_api_activate' ) );
 			register_deactivation_hook( __FILE__, array( $this, 'bp_api_deactivate' ) );
 
+
+			add_action( 'plugins_loaded', array( $this, 'check_if_exists' ), 9999 );
+			add_action( 'bp_include', array( $this, 'bp_api_init' ) );
+		}
+		
+		
+
+		/**
+		 * check_if_exists function.
+		 *
+		 * checks for plugin dependency and deactivates if not found
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		public function check_if_exists() {
+		
 			// is BuddyPress plugin active? If not, throw a notice and deactivate
-			if ( ! in_array( 'buddypress/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			if ( !class_exists( 'BuddyPress' ) ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_buddypress_required' ) );
 				return;
 			}
 
 			// is JSON API plugin active? If not, throw a notice and deactivate
-			if ( ! in_array( 'WP-API-develop/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			if ( !class_exists('WP_REST_Server') ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_wp_api_required' ) );
 				return;
 			}
-
-			add_action( 'bp_include', array( $this, 'bp_api_init' ) );
+			
 		}
 
 
 		/**
 		 * bp_api_init function.
+		 * 
+		 * much files, so include
 		 *
 		 * @access public
 		 * @return void
@@ -160,7 +178,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @return void
 		 */
 		public function bp_api_buddypress_required() {
-			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the <a href="https://buddypress.org/">BuddyPress plugin</a> to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
+			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the <a href="https://buddypress.org/">BuddyPress plugin</a> to be installed/activated. %1$s has been deactivated.', 'bp-api' ), 'BuddyPress API' ) .'</p></div>';
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 		}
 
@@ -172,11 +190,20 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * @return void
 		 */
 		public function bp_api_wp_api_required() {
-			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the <a href="https://wordpress.org/plugins/json-rest-api/">WP API plugin</a> to be installed/activated. %1$s has been deactivated.', 'appbuddy' ), 'BuddyPress API' ) .'</p></div>';
+			echo '<div id="message" class="error"><p>'. sprintf( __( '%1$s requires the <a href="https://github.com/WP-API/WP-API/releases/tag/2.0-beta3">WP API V2 plugin</a> to be installed/activated. %1$s has been deactivated.', 'bp-api' ), 'BuddyPress API' ) .'</p></div>';
 			deactivate_plugins( plugin_basename( __FILE__ ), true );
 		}
 
 
+
+		/**
+		 * create_bp_endpoints function.
+		 *
+		 * adds BuddyPress data endpoints to WP-API
+		 * 
+		 * @access public
+		 * @return void
+		 */
 		public function create_bp_endpoints() {
 
 			/*

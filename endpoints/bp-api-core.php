@@ -21,7 +21,7 @@ class BP_API_Core extends WP_REST_Controller {
 		register_rest_route( BP_API_SLUG, '/core/*', array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'get_item' ),
-			'permission_callback' => array( $this, 'core_api_permissions_check' ),
+			'permission_callback' => array( $this, 'core_api_permissions' ),
 		) );
 	}
 
@@ -57,16 +57,16 @@ class BP_API_Core extends WP_REST_Controller {
 	
 
 	/**
-	 * core_api_permissions_check function.
+	 * core_api_permissions function.
 	 *
 	 * allow permission to access core info
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function core_api_permissions_check(  ) {
-	
-		$response = apply_filters( 'core_api_permissions_check', true );
+	public function core_api_permissions() {
+			
+		$response = apply_filters( 'core_api_permissions', true );
 		
 		return $response;
 	

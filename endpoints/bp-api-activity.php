@@ -1,7 +1,44 @@
 <?php
 
-class BP_API_Activity {
+class BP_API_Activity extends WP_REST_Controller {
 
+
+	public function __construct() {
+
+	}
+
+
+	/**
+	 * register_routes function.
+	 *
+	 * Register the routes for the objects of the controller.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function register_routes() {
+	
+		register_rest_route( BP_API_SLUG, '/activity', array(
+			'methods'         => WP_REST_Server::READABLE,
+			'callback'        => array( $this, 'get_items' ),
+			'permission_callback' => array( $this, 'bp_activity_permission' )
+		) );
+		register_rest_route( BP_API_SLUG, '/activity/(?P<id>\d+)', array(
+			'methods'         => WP_REST_Server::READABLE,
+			'callback'        => array( $this, 'get_item' ),
+			'permission_callback' => array( $this, 'bp_activity_permission' ),
+		) );
+		
+	}
+
+
+	/**
+	 * get_items function.
+	 * 
+	 * @access public
+	 * @param array $filter (default: array())
+	 * @return void
+	 */
 	public function get_items( $filter = array() ) {
 
 		$response = $this->get_activity( $filter['filter'] );
@@ -10,6 +47,14 @@ class BP_API_Activity {
 
 	}
 
+	
+	/**
+	 * get_item function.
+	 * 
+	 * @access public
+	 * @param mixed $request
+	 * @return void
+	 */
 	public function get_item( $request ) {
 
 		$response = 'a single activity item';
@@ -19,11 +64,14 @@ class BP_API_Activity {
 	}
 
 
-	/*
-	* Helper functions to process data requests
-	*
-	*/
-
+	
+	/**
+	 * get_activity function.
+	 * 
+	 * @access public
+	 * @param mixed $filter
+	 * @return void
+	 */
 	public function get_activity( $filter ) {
 
 		$args = $filter;
@@ -73,22 +121,62 @@ class BP_API_Activity {
 
 	}
 
+	
+	/**
+	 * add_activity function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function add_activity() {
 
 		//add activity code here
 
 	}
 
+	
+	/**
+	 * edit_activity function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function edit_activity() {
 
 		//edit activity code here
 
 	}
 
+	
+	/**
+	 * remove_activity function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function remove_activity() {
 
 		//remove activity code here
 
 	}
+	
+	
+	/**
+	 * bp_activity_permission function.
+	 *
+	 * allow permission to access data
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function bp_activity_permission() {
+	
+		$response = apply_filters( 'bp_activity_permission', true );
+		
+		return $response;
+	
+	}
+
+	
 
 }

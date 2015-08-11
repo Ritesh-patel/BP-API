@@ -218,14 +218,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			*/
 			if ( bp_is_active( 'activity' ) ) {
 				$bp_api_activity = new BP_API_Activity;
-				register_rest_route( BP_API_SLUG, '/activity', array(
-					'methods'         => 'GET',
-					'callback'        => array( $bp_api_activity, 'get_items' ),
-				) );
-				register_rest_route( BP_API_SLUG, '/activity/(?P<id>\d+)', array(
-					'methods'         => 'GET',
-					'callback'        => array( $bp_api_activity, 'get_item' ),
-				) );
+				$bp_api_activity->register_routes();
 			}
 
 			/*
@@ -245,7 +238,6 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 
 		}
-
 
 
 	}

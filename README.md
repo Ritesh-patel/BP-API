@@ -4,7 +4,7 @@
 
 BuddyPress JSON Api endpoints for https://github.com/WP-API/WP-API
 
-Use the WP-API develop branch with this plugin https://github.com/WP-API/WP-API/releases/tag/2.0-beta3
+Use the WP-API plugin version 2 https://wordpress.org/plugins/rest-api
 
 THIS IS A WORK IN PROGRESS!!! currently doesn't do much.
 

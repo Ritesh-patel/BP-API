@@ -13,7 +13,7 @@ Author URI: https://github.com/modemlooper/bp-api
 if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( !class_exists( 'BuddyPress_API' ) ) :
-	
+
 	/**
 	 * Main BuddyPress API Class
 	 */
@@ -54,8 +54,8 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		private function constants() {
 
 			// define api endpint prefix
-			if ( ! defined( 'BP_API_SLUG' ) ) {
-				define( 'BP_API_SLUG', 'bp' );
+			if ( ! defined( 'BP_API_NAMESPACE' ) ) {
+				define( 'BP_API_NAMESPACE', 'bp' );
 			}
 
 			// Define a constant that can be checked to see if the component is installed or not.
@@ -66,7 +66,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			// Define a constant that will hold the current version number of the component
 			// This can be useful if you need to run update scripts or do compatibility checks in the future
 			if ( ! defined( 'BP_API_VERSION' ) ) {
-				define( 'BP_API_VERSION', '0.1' );
+				define( 'BP_API_VERSION', 'v1' );
 			}
 
 			// Define a constant that we can use to construct file paths and url
@@ -89,7 +89,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 		/**
 		 * BP-API Actions
-		 * 
+		 *
 		 * Includes actions for init, activation/deactivation hooks, and admin notices.
 		 *
 		 */
@@ -102,19 +102,19 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			add_action( 'plugins_loaded', array( $this, 'check_if_exists' ), 9999 );
 			add_action( 'bp_include', array( $this, 'bp_api_include' ) );
 		}
-		
-		
+
+
 
 		/**
 		 * check_if_exists function.
 		 *
 		 * checks for plugin dependency and deactivates if not found
-		 * 
+		 *
 		 * @access public
 		 * @return void
 		 */
 		public function check_if_exists() {
-		
+
 			// is BuddyPress plugin active? If not, throw a notice and deactivate
 			if ( !class_exists( 'BuddyPress' ) ) {
 				add_action( 'all_admin_notices', array( $this, 'bp_api_buddypress_required' ) );
@@ -126,13 +126,13 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 				add_action( 'all_admin_notices', array( $this, 'bp_api_wp_api_required' ) );
 				return;
 			}
-			
+
 		}
 
 
 		/**
 		 * bp_api_init function.
-		 * 
+		 *
 		 * much files, so include
 		 *
 		 * @access public
@@ -200,7 +200,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 		 * create_bp_endpoints function.
 		 *
 		 * adds BuddyPress data endpoints to WP-API
-		 * 
+		 *
 		 * @access public
 		 * @return void
 		 */
@@ -225,15 +225,9 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 			* BP xProfile
 			*/
 			if ( bp_is_active( 'xprofile' ) ) {
+
 				$bp_api_xprofile = new BP_API_xProfile;
-				register_rest_route( BP_API_SLUG, '/xprofile', array(
-					'methods'         => 'GET',
-					'callback'        => array( $bp_api_xprofile, 'get_items' ),
-				) );
-				register_rest_route( BP_API_SLUG, '/xprofile/(?P<id>\d+)', array(
-					'methods'         => 'GET',
-					'callback'        => array( $bp_api_xprofile, 'get_item' ),
-				) );
+				$bp_api_xprofile->register_routes();
 			}
 
 
@@ -244,7 +238,7 @@ if ( !class_exists( 'BuddyPress_API' ) ) :
 
 endif;
 
-function bp_api() {
-	return BuddyPress_API::instance();
+function buddypress_api_init() {
+	BuddyPress_API::instance();
 }
-bp_api();
+buddypress_api_init();

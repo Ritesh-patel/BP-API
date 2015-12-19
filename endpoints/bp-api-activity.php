@@ -83,7 +83,7 @@ class BP_API_Activity extends WP_REST_Controller {
 				bp_the_activity();
 
 				$activity = array(
-					'avatar'	 		=> bp_core_fetch_avatar( array( 'html' => false, 'item_id' => bp_get_activity_id() ) ),
+					'avatar'	 		=> bp_core_fetch_avatar( array( 'html' => false, 'item_id' => bp_get_activity_user_id() ) ),
 					'action'	 		=> bp_get_activity_action(),
 					'content'	  		=> bp_get_activity_content_body(),
 					'activity_id'		=> bp_get_activity_id(),
@@ -93,7 +93,9 @@ class BP_API_Activity extends WP_REST_Controller {
 					'can_comment'	 	=> bp_activity_can_comment(),
 					'can_favorite'	  	=> bp_activity_can_favorite(),
 					'is_favorite'	 	=> bp_get_activity_is_favorite(),
-					'can_delete'  		=> bp_activity_user_can_delete()
+					'can_delete'  		=> bp_activity_user_can_delete(),
+					'user_displayname'  => bp_core_get_user_displayname( bp_get_activity_user_id() ),
+					'activity_date'     => bp_get_activity_date_recorded(),
 				);
 
 				$activity = apply_filters( 'bp_json_prepare_activity', $activity );

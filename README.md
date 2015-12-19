@@ -9,3 +9,5 @@ Use the WP-API plugin version 2 https://wordpress.org/plugins/rest-api
 THIS IS A WORK IN PROGRESS!!! currently doesn't do much.
 
 Do PRs on the develop branch if you want to contribute
+
+

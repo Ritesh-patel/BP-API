@@ -47,7 +47,7 @@ class BP_API_Activity extends WP_REST_Controller {
 	 */
 	public function get_items( $request ) {
 
-		$response = $this->get_activity( $request['filter'] );
+		$response = $this->get_activity( $request->get_query_params() );
 
 		return $response;
 	}

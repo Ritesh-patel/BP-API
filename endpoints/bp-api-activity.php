@@ -99,6 +99,7 @@ class BP_API_Activity extends WP_REST_Controller {
 					'can_delete'  		=> bp_activity_user_can_delete(),
 					'user_displayname'  => bp_core_get_user_displayname( bp_get_activity_user_id() ),
 					'activity_date'     => bp_get_activity_date_recorded(),
+					'time_since'        => bp_core_time_since( bp_get_activity_date_recorded() ),
 				);
 
 				$activity = apply_filters( 'bp_rest_prepare_activity', $activity );
